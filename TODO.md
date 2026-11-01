@@ -14,7 +14,7 @@
 - [ ] Implementar Clientes con búsqueda, historial y Nueva Visita en bottom sheet con servicio, precio, días, recordatorio y notas.
 - [x] Implementar Avisar con filtros, preview de WhatsApp, variables `{nombre}`, `{servicio}`, `{precio}`, botón de envío y marcar como avisada.
 - [x] Implementar Ajustes con tema, moneda bloqueada a Lempira, notificaciones, exportación JSON/CSV, importación y restablecimiento visual.
-- [x] Crear tarjeta de seguridad dentro de Ajustes para configuración pública Firebase, con almacenamiento local compatible con Web y móvil.
+- [x] Crear tarjeta de seguridad dentro de Ajustes como indicador de estado; la configuración Firebase vive fuera de la app.
 - [x] Crear pantalla de inicio de sesión y registro por email/password con perfiles `usuarios/{uid}` y rol inicial `cliente`.
 - [ ] Implementar los flujos de cliente: catálogo, agenda, citas, cancelación/reprogramación, calendario, llamada, WhatsApp y perfil.
 - [ ] Implementar los flujos de empleado: agenda, pendientes y aprobar/rechazar/proponer nueva hora.
