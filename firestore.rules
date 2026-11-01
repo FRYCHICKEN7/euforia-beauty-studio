@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+    function validAppointmentState(state) {
+      return state in ['hold', 'pendiente_de_aprobacion', 'confirmada', 'en_curso', 'completada', 'cancelada', 'rechazada', 'expirada'];
+    }
+
+    match /citas/{citaId} {
+      allow read: if signedIn() && (resource.data.clienteId == request.auth.uid || resource.data.empleadoId == request.auth.uid || isAdmin());
+      allow create, update, delete: if false;
+    }
+
+    match /clientes/{clienteId} {
+      allow read: if signedIn() && (clienteId == request.auth.uid || isAdmin());
+      allow create, update: if signedIn() && clienteId == request.auth.uid;
+      allow delete: if signedIn() && (clienteId == request.auth.uid || isAdmin());
+    }
+
+    match /negocios/{negocioId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+      match /{subcollection}/{documentId} {
+        allow read: if signedIn();
+        allow write: if isAdmin();
+      }
+    }
+
+    match /notificaciones/{notifId} {
+      allow read: if signedIn() && resource.data.destinatarioId == request.auth.uid;
+      allow update: if signedIn() && resource.data.destinatarioId == request.auth.uid;
+      allow create, delete: if false;
+    }
+  }
+}

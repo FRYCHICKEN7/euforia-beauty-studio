@@ -1,48 +1,15 @@
-import { ScrollView, Text, View, TouchableOpacity } from "react-native";
-
+import { CalendarDays, ChevronRight, Clock3, Scissors, TrendingUp, UsersRound } from "lucide-react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { AppHeader } from "@/components/app-header";
+import { ClientRow } from "@/components/client-row";
+import { MetricCard } from "@/components/metric-card";
+import { SectionTitle } from "@/components/section-title";
+import { BRAND } from "@/constants/brand";
+import { demoClients, summary } from "@/lib/demo-data";
+import { formatCurrency } from "@/lib/formatCurrency";
 import { ScreenContainer } from "@/components/screen-container";
 
-/**
- * Home Screen - NativeWind Example
- *
- * This template uses NativeWind (Tailwind CSS for React Native).
- * You can use familiar Tailwind classes directly in className props.
- *
- * Key patterns:
- * - Use `className` instead of `style` for most styling
- * - Theme colors: use tokens directly (bg-background, text-foreground, bg-primary, etc.); no dark: prefix needed
- * - Responsive: standard Tailwind breakpoints work on web
- * - Custom colors defined in tailwind.config.js
- */
-export default function HomeScreen() {
-  return (
-    <ScreenContainer className="p-6">
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <View className="flex-1 gap-8">
-          {/* Hero Section */}
-          <View className="items-center gap-2">
-            <Text className="text-4xl font-bold text-foreground">Welcome</Text>
-            <Text className="text-base text-muted text-center">
-              Edit app/(tabs)/index.tsx to get started
-            </Text>
-          </View>
-
-          {/* Example Card */}
-          <View className="w-full max-w-sm self-center bg-surface rounded-2xl p-6 shadow-sm border border-border">
-            <Text className="text-lg font-semibold text-foreground mb-2">NativeWind Ready</Text>
-            <Text className="text-sm text-muted leading-relaxed">
-              Use Tailwind CSS classes directly in your React Native components.
-            </Text>
-          </View>
-
-          {/* Example Button */}
-          <View className="items-center">
-            <TouchableOpacity className="bg-primary px-6 py-3 rounded-full active:opacity-80">
-              <Text className="text-background font-semibold">Get Started</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-    </ScreenContainer>
-  );
+export default function SummaryScreen() {
+  return <ScreenContainer containerClassName="bg-background" safeAreaClassName="bg-background"><ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}><AppHeader /><View style={styles.hero}><View><Text style={styles.eyebrow}>RESUMEN DE TU ESTUDIO</Text><Text style={styles.headline}>Todo bajo control,</Text><Text style={styles.headlineAccent}>un día a la vez.</Text></View><View style={styles.datePill}><CalendarDays size={15} color={BRAND.primary} /><Text style={styles.dateText}>Lun, 31 oct</Text></View></View><View style={styles.metrics}><MetricCard label="Ingresos" value={formatCurrency(summary.income)} detail="↑ 12% vs. semana pasada" icon={TrendingUp} tone="pink" /><MetricCard label="Visitas" value={`${summary.visits}`} detail="Esta semana" icon={UsersRound} tone="green" /></View><View style={styles.metrics}><MetricCard label="Más popular" value="Manicure gel" detail="18 reservas" icon={Scissors} tone="gold" /><MetricCard label="Para avisar" value={`${summary.toRemind}`} detail="Clientas hoy" icon={Clock3} tone="wine" /></View><SectionTitle title="Próxima en tu agenda" action="Ver agenda" /><View style={styles.appointment}><View style={styles.appointmentTime}><Text style={styles.time}>10:30</Text><Text style={styles.am}>a. m.</Text></View><View style={styles.appointmentLine} /><View style={styles.appointmentCopy}><Text style={styles.clientName}>Carla Pineda</Text><Text style={styles.service}>Manicure gel · 1 h</Text><Text style={styles.status}>Confirmada</Text></View><ChevronRight size={20} color={BRAND.muted} /></View><SectionTitle title="Para avisar hoy" action="Ver todas" /><View style={styles.clientsCard}>{demoClients.slice(0, 3).map(client => <ClientRow key={client.id} client={client} onMessage={() => undefined} />)}</View></ScrollView></ScreenContainer>;
 }
+const styles = StyleSheet.create({ content: { paddingBottom: 30 }, hero: { paddingHorizontal: 20, flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", marginTop: 5 }, eyebrow: { color: BRAND.primary, fontSize: 10, fontWeight: "800", letterSpacing: 1.2 }, headline: { color: BRAND.wine, fontSize: 27, fontWeight: "800", marginTop: 5 }, headlineAccent: { color: BRAND.primary, fontSize: 27, fontWeight: "800", marginTop: 1 }, datePill: { flexDirection: "row", alignItems: "center", gap: 5, backgroundColor: BRAND.surface, borderRadius: 999, borderWidth: 1, borderColor: BRAND.border, paddingHorizontal: 10, paddingVertical: 8 }, dateText: { color: BRAND.muted, fontSize: 10, fontWeight: "700" }, metrics: { flexDirection: "row", gap: 12, paddingHorizontal: 20, marginTop: 14 }, appointment: { flexDirection: "row", alignItems: "center", backgroundColor: BRAND.surface, borderRadius: 22, marginHorizontal: 20, padding: 15, shadowColor: BRAND.shadow, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 12, elevation: 2 }, appointmentTime: { alignItems: "center", width: 51 }, time: { color: BRAND.wine, fontSize: 17, fontWeight: "800" }, am: { color: BRAND.muted, fontSize: 10, marginTop: 1 }, appointmentLine: { width: 1, height: 49, backgroundColor: BRAND.border, marginHorizontal: 13 }, appointmentCopy: { flex: 1 }, clientName: { color: BRAND.wine, fontSize: 14, fontWeight: "800" }, service: { color: BRAND.muted, fontSize: 12, marginTop: 4 }, status: { color: BRAND.success, fontSize: 11, fontWeight: "800", marginTop: 5 }, clientsCard: { backgroundColor: BRAND.surface, borderRadius: 24, marginHorizontal: 20, paddingHorizontal: 14, shadowColor: BRAND.shadow, shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.05, shadowRadius: 12, elevation: 2 } });
