@@ -4,7 +4,7 @@ Aplicación móvil para la gestión de citas y clientas de EUFORIA Beauty Studio
 
 ## Estado de esta entrega
 
-La primera entrega deja lista la identidad visual, la navegación principal de cuatro secciones y los flujos visuales de resumen, clientes, avisos por WhatsApp, ajustes, catálogo cliente y agenda empleado. La UI usa datos demo para funcionar en Preview sin credenciales externas. La auditoría del repositorio de referencia está en `AUDITORIA.md` y las decisiones técnicas en `plan.md`.
+La entrega deja lista la identidad visual, la navegación principal de cuatro secciones, el acceso por Firebase Authentication y los flujos visuales de resumen, clientes, avisos por WhatsApp, ajustes, catálogo cliente y agenda empleado. No se incluyen nombres, servicios, precios ni estadísticas ficticias: mientras Firebase no entregue datos, la aplicación muestra ceros y estados vacíos. La auditoría del repositorio de referencia está en `AUDITORIA.md` y las decisiones técnicas en `plan.md`.
 
 ## Logo e icono
 
@@ -16,7 +16,11 @@ La aplicación usa exclusivamente lempiras hondureños. La utilidad `lib/formatC
 
 ## Firebase
 
-Copia `.env.example` como `.env` y coloca las variables públicas de Firebase para el cliente. En una build nativa, agrega `google-services.json` y `GoogleService-Info.plist` según la configuración de tu proyecto Firebase. No se deben subir claves privadas ni el service account al repositorio. Activa Auth por teléfono y email/password, Firestore, FCM y persistencia offline.
+Copia `.env.example` como `.env` y coloca las variables públicas de Firebase para el cliente. También puedes abrir **Ajustes → Conexión segura con Firebase** y completar la tarjeta con `apiKey`, `projectId`, `authDomain`, `appId`, `messagingSenderId` y `storageBucket`; se guardan localmente y funcionan en Preview Web y dispositivo. Esos valores son configuración pública del cliente, no claves privadas.
+
+La pantalla inicial es `app/auth.tsx`: permite iniciar sesión y registrarse con Firebase Authentication por email y contraseña. Al registrarse se crea el perfil `usuarios/{uid}` con rol inicial `cliente`. Para administrar roles, crea o actualiza ese documento con `rol: administrador`, `empleado` o `cliente` desde un entorno autorizado. Nunca coloques contraseñas, tokens privados, service accounts ni archivos JSON privados en la tarjeta o el repositorio.
+
+En una build nativa, agrega `google-services.json` y `GoogleService-Info.plist` según la configuración de tu proyecto Firebase. Activa Auth por teléfono y email/password, Firestore, FCM y persistencia offline.
 
 El backend previsto se encuentra en `functions/`. `firestore.rules` bloquea la escritura directa de `citas` desde clientes. La función callable `reservarCita` debe ser la única vía para validar solapamiento dentro de una transacción Firestore.
 
@@ -42,15 +46,15 @@ El APK no se afirma como generado hasta contar con el resultado real de EAS.
 | Feature | Estado |
 | --- | --- |
 | Identidad EUFORIA, logo y iconos seguros | Implementado |
-| Resumen administrador | Implementado con datos demo |
-| Clientes y seguimiento | Implementado con datos demo |
+| Resumen administrador | Implementado con ceros y estados vacíos |
+| Clientes y seguimiento | Implementado sin datos ficticios |
 | Avisos WhatsApp y variables | Implementado visualmente |
 | Ajustes y moneda bloqueada | Implementado visualmente |
 | Catálogo cliente y agenda empleado | Prototipo navegable |
-| Firebase Auth/Firestore/FCM | Configuración y contratos pendientes de credenciales |
+| Firebase Auth/Firestore/FCM | Auth email/password y tarjeta de conexión implementados; faltan credenciales/FCM |
 | Anti-solapamiento transaccional | Functions y rules en preparación |
 | APK EAS | Requiere credenciales/proyecto Firebase y EAS |
 
 ## Pendientes honestos
 
-Faltan conectar credenciales reales de Firebase, activar Auth/FCM, implementar la persistencia completa de clientes y citas, desplegar Cloud Functions, probar notificaciones en dispositivo y ejecutar un build EAS real. La previsualización web no valida por sí sola permisos nativos, FCM, huella/PIN ni el comportamiento final del launcher Android.
+Faltan activar FCM, implementar la persistencia completa de clientes y citas, desplegar Cloud Functions, probar notificaciones en dispositivo y ejecutar un build EAS real. La previsualización web no valida por sí sola permisos nativos, FCM, huella/PIN ni el comportamiento final del launcher Android.

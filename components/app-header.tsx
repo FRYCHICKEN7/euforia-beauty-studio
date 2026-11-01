@@ -2,7 +2,7 @@ import { Bell, ChevronDown } from "lucide-react-native";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { BRAND } from "@/constants/brand";
 
-export function AppHeader({ name = "María", onNotifications }: { name?: string; onNotifications?: () => void }) {
+export function AppHeader({ name = "tu cuenta", onNotifications }: { name?: string; onNotifications?: () => void }) {
   return (
     <View style={styles.container}>
       <View style={styles.identity}>

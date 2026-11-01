@@ -14,13 +14,15 @@
 - [ ] Implementar Clientes con búsqueda, historial y Nueva Visita en bottom sheet con servicio, precio, días, recordatorio y notas.
 - [x] Implementar Avisar con filtros, preview de WhatsApp, variables `{nombre}`, `{servicio}`, `{precio}`, botón de envío y marcar como avisada.
 - [x] Implementar Ajustes con tema, moneda bloqueada a Lempira, notificaciones, exportación JSON/CSV, importación y restablecimiento visual.
+- [x] Crear tarjeta de seguridad dentro de Ajustes para configuración pública Firebase, con almacenamiento local compatible con Web y móvil.
+- [x] Crear pantalla de inicio de sesión y registro por email/password con perfiles `usuarios/{uid}` y rol inicial `cliente`.
 - [ ] Implementar los flujos de cliente: catálogo, agenda, citas, cancelación/reprogramación, calendario, llamada, WhatsApp y perfil.
 - [ ] Implementar los flujos de empleado: agenda, pendientes y aprobar/rechazar/proponer nueva hora.
 
 ## Moneda y datos
 
 - [x] Crear `formatCurrency(value)` y usarlo en tarjetas, listas, inputs, plantillas y estadísticas con formato exacto `L. X,XXX.XX`.
-- [ ] Configurar Firebase Auth por teléfono +504 y email/password, persistencia offline de Firestore y documentación de credenciales.
+- [ ] Activar en Firebase los proveedores Auth, terminar la recuperación de sesión/rol y conectar persistencia real de usuarios, clientes y citas.
 - [x] Crear contratos base para negocios, empleados, servicios, clientes, citas y notificaciones.
 - [x] Crear índices `(negocioId, empleadoId, inicio)` y `(negocioId, estado, inicio)`.
 
@@ -36,5 +38,5 @@
 
 - [x] Actualizar `README.md` con logo, Firebase, despliegue de Functions, `eas build -p android --profile preview`, features y pendientes honestos.
 - [x] Ejecutar diagnóstico TypeScript, `pnpm check`, `pnpm lint`, build del servidor y verificación de listeners 8081/3000.
-- [x] Revisar rutas y estados sin credenciales con datos demo.
+- [x] Revisar rutas y estados sin credenciales con ceros y estados vacíos, sin datos demo.
 - [ ] Dejar lista la configuración para que el APK se genere en EAS, sin afirmar éxito hasta disponer del resultado real de EAS.
