@@ -16,6 +16,8 @@
 - [x] Implementar Ajustes con tema, moneda bloqueada a Lempira, notificaciones, exportación JSON/CSV, importación y restablecimiento visual.
 - [x] Crear tarjeta de seguridad dentro de Ajustes como indicador de estado; la configuración Firebase vive fuera de la app.
 - [x] Crear pantalla de inicio de sesión y registro por email/password con perfiles `usuarios/{uid}` y rol inicial `cliente`.
+- [x] Implementar recuperación de contraseña por correo con `sendPasswordResetEmail` y cambio interno con `updatePassword`/reauthenticate.
+- [x] Ajustar el modo oscuro a rosado oscuro con texto blanco y persistir la selección del tema.
 - [ ] Implementar los flujos de cliente: catálogo, agenda, citas, cancelación/reprogramación, calendario, llamada, WhatsApp y perfil.
 - [ ] Implementar los flujos de empleado: agenda, pendientes y aprobar/rechazar/proponer nueva hora.
 

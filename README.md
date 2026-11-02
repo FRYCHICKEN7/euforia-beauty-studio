@@ -18,7 +18,7 @@ La aplicación usa exclusivamente lempiras hondureños. La utilidad `lib/formatC
 
 Copia `.env.example` como `.env` y coloca las variables públicas de Firebase para el cliente. La tarjeta **Ajustes → Conexión segura con Firebase** solo muestra el estado de la conexión; no captura ni almacena credenciales. Configura las variables `EXPO_PUBLIC_FIREBASE_*` en el entorno local, en los secretos del proyecto o en EAS. Esos valores son configuración pública del cliente, pero nunca deben mezclarse con claves privadas.
 
-La pantalla inicial es `app/auth.tsx`: permite iniciar sesión y registrarse con Firebase Authentication por email y contraseña. Al registrarse se crea el perfil `usuarios/{uid}` con rol inicial `cliente`. Para administrar roles, crea o actualiza ese documento con `rol: administrador`, `empleado` o `cliente` desde un entorno autorizado. Nunca coloques contraseñas, tokens privados, service accounts ni archivos JSON privados en la tarjeta o el repositorio.
+La pantalla inicial es `app/auth.tsx`: permite iniciar sesión, registrarse y solicitar recuperación por correo con `sendPasswordResetEmail`. Dentro de Ajustes, **Seguridad** abre `app/change-password.tsx` para cambiar la contraseña del usuario autenticado mediante Firebase Auth. Al registrarse se crea el perfil `usuarios/{uid}` con rol inicial `cliente`. Para administrar roles, crea o actualiza ese documento con `rol: administrador`, `empleado` o `cliente` desde un entorno autorizado. Nunca coloques contraseñas, tokens privados, service accounts ni archivos JSON privados en la tarjeta o el repositorio.
 
 En una build nativa, agrega `google-services.json` y `GoogleService-Info.plist` según la configuración de tu proyecto Firebase. Activa Auth por teléfono y email/password, Firestore, FCM y persistencia offline.
 
@@ -49,9 +49,9 @@ El APK no se afirma como generado hasta contar con el resultado real de EAS.
 | Resumen administrador | Implementado con ceros y estados vacíos |
 | Clientes y seguimiento | Implementado sin datos ficticios |
 | Avisos WhatsApp y variables | Implementado visualmente |
-| Ajustes y moneda bloqueada | Implementado visualmente |
+| Ajustes, moneda bloqueada y modo rosado oscuro | Implementado visualmente |
 | Catálogo cliente y agenda empleado | Prototipo navegable |
-| Firebase Auth/Firestore/FCM | Auth email/password y tarjeta de conexión implementados; faltan credenciales/FCM |
+| Firebase Auth/Firestore/FCM | Auth email/password, recuperación, cambio de contraseña y tarjeta de conexión implementados; falta FCM |
 | Anti-solapamiento transaccional | Functions y rules en preparación |
 | APK EAS | Requiere credenciales/proyecto Firebase y EAS |
 
