@@ -18,6 +18,10 @@ export function subscribeUsers(db: Firestore, role: UserRole | UserRole[], onDat
   return onSnapshot(query(collection(db, "users"), ...constraints), snapshot => onData(snapshot.docs.map(item => ({ id: item.id, ...item.data() } as UserProfile))), error => onError?.(error as Error));
 }
 
+export function subscribeEmployees(db: Firestore, onData: (items: UserProfile[]) => void, onError?: (error: Error) => void) {
+  return onSnapshot(collection(db, "empleados"), snapshot => onData(snapshot.docs.map(item => ({ id: item.id, ...item.data(), role: "empleado" } as UserProfile))), error => onError?.(error as Error));
+}
+
 export function subscribeAllUsers(db: Firestore, onData: (items: UserProfile[]) => void, onError?: (error: Error) => void) {
   return onSnapshot(collection(db, "users"), snapshot => onData(snapshot.docs.map(item => ({ id: item.id, ...item.data() } as UserProfile))), error => onError?.(error as Error));
 }
