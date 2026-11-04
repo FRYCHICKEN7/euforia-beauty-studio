@@ -21,6 +21,11 @@
 - [x] Ajustar el modo oscuro a rosado oscuro con texto blanco y persistir la selección del tema.
 - [ ] Implementar los flujos de cliente: catálogo, agenda, citas, cancelación/reprogramación, calendario, llamada, WhatsApp y perfil.
 - [ ] Implementar los flujos de empleado: agenda, pendientes y aprobar/rechazar/proponer nueva hora.
+- [ ] Leer perfiles reales desde `users/{uid}` conservando `email`, `id`, `identityNumber`, `name`, `phone`, `profileImage` y roles heredados `cliente`/`customer`, `empleado` y `administrador`/`admin`.
+- [ ] Permitir que una persona se registre como cliente; solo un administrador podrá promoverla a empleado y crear su perfil laboral.
+- [ ] Permitir al empleado definir por día hora de inicio, hora de fin y el check `disponible`; soportar el horario corregido de 8:00 a. m. a 5:00 p. m. y turnos que crucen medianoche.
+- [ ] Guardar en cada servicio precio en lempiras y duración estimada, por ejemplo `1:30` como `90` minutos; mostrar al cliente únicamente slots completos dentro de disponibilidad y sin cruces con citas activas.
+- [ ] Notificar al empleado cada solicitud; al confirmar, agendar inmediatamente al cliente; ofrecer acciones `Inicio de Servicio` y `Servicio Finalizado` y guardar inicio, fin y duración real para métricas administrativas.
 
 ## Moneda y datos
 

@@ -29,6 +29,14 @@ La capa Firebase se diseña con interfaces pequeñas para poder trabajar sin cre
 
 Se modelan negocios, empleados, servicios, clientes, citas y notificaciones según el contrato. `reservarCita` lee citas activas del mismo empleado/negocio dentro del rango y escribe en una transacción atómica. En modo unipersonal el estado inicial es `confirmada`; en multi-empleado es `hold` o `pendiente_de_aprobacion` según el flujo. `expirarHolds` libera holds vencidos y `aprobarCita`/`rechazarCita` cambian estados y disparan push.
 
+### Ampliación derivada del enlace compartido
+
+La colección heredada `users/{uid}` será la fuente de identidad compatible con los perfiles existentes. Se conservarán `email`, `id`, `identityNumber`, `name`, `phone`, `profileImage` y `role`; `role` acepta `cliente`/`customer`, `empleado` y `administrador`/`admin`. Un registro público siempre nace como cliente. El administrador es el único que puede promover un usuario y crear su perfil laboral de empleado.
+
+Los perfiles de empleado tendrán disponibilidad semanal con hora de inicio, hora de fin y `disponible: true|false`. Se interpretan turnos diurnos de 8:00 a. m. a 5:00 p. m. y se soportan turnos que cruzan medianoche. Los servicios tendrán precio en lempiras y `duracionMin`; el cálculo de slots solo mostrará intervalos que caben completos dentro del horario disponible y que no se cruzan con citas activas.
+
+El empleado recibe solicitudes pendientes y puede confirmar, iniciar y finalizar el servicio. Al iniciar se guarda `startedAt`; al finalizar se guarda `completedAt` y `duracionRealMin` para que el administrador pueda medir la ejecución real por empleado y servicio. La confirmación crea o actualiza la cita del cliente de forma inmediata y genera una notificación persistente para el destinatario.
+
 ## Build y validación
 
 Se mantendrán los puertos fijos 8081/3000 del starter. Antes del primer checkpoint se colocan los assets nativos, se ejecuta el diagnóstico TypeScript, `pnpm check`, `pnpm lint` y el arranque Metro/API. Se documenta que el APK requiere EAS y credenciales nativas; no se ejecuta un build Android dentro del Sandbox.

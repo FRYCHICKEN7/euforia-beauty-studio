@@ -17,6 +17,14 @@
         { "fieldPath": "estado", "order": "ASCENDING" },
         { "fieldPath": "inicio", "order": "ASCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "citas",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "empleadoId", "order": "ASCENDING" },
+        { "fieldPath": "inicio", "order": "ASCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

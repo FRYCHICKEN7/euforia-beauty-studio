@@ -51,7 +51,15 @@ El APK no se afirma como generado hasta contar con el resultado real de EAS.
 | Avisos WhatsApp y variables | Implementado visualmente |
 | Ajustes, moneda bloqueada y modo rosado oscuro | Implementado visualmente |
 | Catálogo cliente y agenda empleado | Prototipo navegable |
-| Firebase Auth/Firestore/FCM | Auth email/password, recuperación, cambio de contraseña y tarjeta de conexión implementados; falta FCM |
+| Firebase Auth/Firestore/FCM | Auth email/password, recuperación, cambio de contraseña, perfiles `users`, roles, citas, disponibilidad, reservas y tarjeta de conexión implementados; FCM nativo queda pendiente |
+
+## Flujo de clientes, empleados y administrador
+
+Los perfiles compatibles se leen desde `users/{uid}`. Un registro nuevo se guarda como cliente. El administrador puede ver clientes reales y promover una cuenta a empleado mediante la Cloud Function `promoverEmpleado`; la persona no puede elevarse de rol por sí sola. El selector de login ofrece Cliente, Empleado y Administrador, y compara el rol seleccionado con el documento de Firestore.
+
+El catálogo cliente lee servicios con precio y `duracionMin`, empleados con disponibilidad semanal y citas activas. Para cada empleado se muestran únicamente slots futuros que caben completos en el horario activo y no se cruzan con otra cita. `reservarCita` vuelve a validar disponibilidad y solapamiento dentro de una transacción atómica.
+
+La agenda de empleado permite activar o desactivar días, conserva por defecto el horario corregido de 08:00 a 17:00 y ofrece `Inicio de Servicio` y `Servicio Finalizado`. Las funciones guardan `startedAt`, `completedAt` y `duracionRealMin` para que el administrador pueda medir tiempos reales.
 | Anti-solapamiento transaccional | Functions y rules en preparación |
 | APK EAS | Requiere credenciales/proyecto Firebase y EAS |
 
